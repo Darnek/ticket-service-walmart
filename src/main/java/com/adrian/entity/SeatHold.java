@@ -1,13 +1,13 @@
 package com.adrian.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class SeatHold {
 
     private int id;
     private int customerId;
-    private Timestamp holdTime;
+    private Date holdTime;
     private String customerEmail;
     private List<Integer> seatsHolded;
 
@@ -17,7 +17,7 @@ public class SeatHold {
         this.id=id;
         this.customerEmail = email;
         this.seatsHolded = seatsHolded;
-        this.holdTime = new Timestamp(System.currentTimeMillis());
+        this.holdTime = new Date();
     }
 
 
@@ -42,11 +42,11 @@ public class SeatHold {
         this.customerId = customerId;
     }
 
-    public Timestamp getHoldTime() {
+    public Date getHoldTime() {
         return holdTime;
     }
 
-    public void setHoldTime(Timestamp holdTime) {
+    public void setHoldTime(Date holdTime) {
         this.holdTime = holdTime;
     }
 

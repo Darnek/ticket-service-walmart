@@ -32,7 +32,7 @@ public class TicketDao {
     }
 
     public Collection<Seat> getAllAvailableSeats(){
-
+        checkForHoldedSeatsNotUsed();
         List<Seat> availableSeats = new ArrayList<>();
         for (Seat s : seats){
             if (s.getSeatState()==SeatState.OPEN){
@@ -43,6 +43,7 @@ public class TicketDao {
     }
 
     public int numSeatsAvailable(){
+        checkForHoldedSeatsNotUsed();
         int numSeats=0;
         for (Seat s : seats){
             if (s.getSeatState()== SeatState.OPEN){
@@ -50,6 +51,16 @@ public class TicketDao {
             }
         }
         return numSeats;
+    }
+
+    public void checkForHoldedSeatsNotUsed(){
+        for (SeatHold s : holdList){
+            if ((s.getHoldTime().getTime()-new Date().getTime())<60000){ //Not used for at least 60 seconds
+                for (int e : s.getSeatsHolded()){
+                    clearSeatByNumber(e);
+                }
+            }
+        }
     }
 
     public SeatHold findAndHoldSeats(int numSeats, String customerEmail){
@@ -90,7 +101,9 @@ public class TicketDao {
     }
 
     public void clearSeatByNumber(int id){
-        this.seats.get(id).clearSeat();
+        if (this.seats.get(id).getSeatState()==SeatState.HOLD) {
+            this.seats.get(id).clearSeat();
+        }
     }
 
 }
