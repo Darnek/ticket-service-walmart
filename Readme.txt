@@ -19,8 +19,10 @@
 	
 	.... Tomcat started on port(s): 8080 (http)
 	.... Started Main in 2.191 seconds (JVM running for 2.592)
-	```
 	
+4.   To test you should run the command "mvn test" or click run on the TicketTest.java
+
+
 # REST Web Services
 ---
 
