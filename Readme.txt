@@ -1,3 +1,6 @@
+# This app was compiled using jdk 11.0.2, apache maven 3.6.0 and IntelliJ Community Edition 2018.3.4
+
+In case of compile error please try using jdk 11.0.2 or later and apache maven 3.6.0
 
 # Assumptions
 ---
