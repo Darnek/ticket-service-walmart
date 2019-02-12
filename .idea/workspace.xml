@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eedb0e16-8cf6-4c70-9dfb-6674174248e1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -14,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="36" column="80" selection-start-line="36" selection-start-column="65" selection-end-line="36" selection-end-column="80" />
+            <state relative-caret-position="748">
+              <caret line="44" column="84" lean-forward="true" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,10 +76,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="102">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#279#280#0" expanded="true" />
+                <element signature="e#308#309#0" expanded="true" />
+                <element signature="e#353#354#0" expanded="true" />
+                <element signature="e#389#390#0" expanded="true" />
+                <element signature="e#912#913#0" expanded="true" />
                 <element signature="e#943#944#0" expanded="true" />
               </folding>
             </state>
@@ -88,7 +94,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
+            <state relative-caret-position="306">
               <caret line="18" column="33" lean-forward="true" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -101,15 +107,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="61" column="13" lean-forward="true" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+            <state relative-caret-position="119">
+              <caret line="97" column="70" selection-start-line="97" selection-start-column="70" selection-end-line="97" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2637#2638#0" expanded="true" />
-                <element signature="e#2682#2683#0" expanded="true" />
+                <element signature="e#2815#2816#0" expanded="true" />
+                <element signature="e#2860#2861#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,12 +179,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatState.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/entity/RequestSeat.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/entity/ReserveRequest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/controller/TicketController.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" />
       </list>
     </option>
   </component>
@@ -264,7 +270,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549995267920" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549997073447" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -278,7 +284,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TicketTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.adrian.Main" />
       <module name="ticket" />
@@ -309,8 +315,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TicketTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TicketTest" />
       </list>
     </recent_temporary>
   </component>
@@ -350,6 +356,12 @@
       <configuration name="TicketTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TicketTest - 2019.02.12 at 10h 13m 10s.xml">
+      <configuration name="TicketTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TicketTest - 2019.02.12 at 10h 14m 26s.xml">
+      <configuration name="TicketTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TicketTest - 2019.02.12 at 10h 25m 32s.xml">
       <configuration name="TicketTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -534,20 +546,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="748">
+          <caret line="44" column="84" lean-forward="true" selection-start-line="44" selection-start-column="84" selection-end-line="44" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#943#944#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
+        <state relative-caret-position="306">
           <caret line="18" column="33" lean-forward="true" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -555,18 +566,6 @@
             <element signature="e#444#445#0" expanded="true" />
             <element signature="e#791#792#0" expanded="true" />
             <element signature="e#846#847#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="61" column="13" lean-forward="true" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2637#2638#0" expanded="true" />
-            <element signature="e#2682#2683#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -581,12 +580,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/entity/SeatHold.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="36" column="80" selection-start-line="36" selection-start-column="65" selection-end-line="36" selection-end-column="80" />
+        <state relative-caret-position="102">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+            <element signature="e#308#309#0" expanded="true" />
+            <element signature="e#353#354#0" expanded="true" />
+            <element signature="e#389#390#0" expanded="true" />
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#943#944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="97" column="70" selection-start-line="97" selection-start-column="70" selection-end-line="97" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2815#2816#0" expanded="true" />
+            <element signature="e#2860#2861#0" expanded="true" />
           </folding>
         </state>
       </provider>

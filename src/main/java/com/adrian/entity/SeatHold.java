@@ -10,6 +10,16 @@ public class SeatHold {
     private Date holdTime;
     private String customerEmail;
     private List<Integer> seatsHolded;
+    private boolean active = true;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 
     public SeatHold(){}
 

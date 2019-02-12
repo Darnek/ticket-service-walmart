@@ -28,6 +28,7 @@ public class TicketDao {
 
 
     public Collection<Seat> getAllSeats(){
+        checkForHoldedSeatsNotUsed();
         return this.seats;
     }
 
@@ -55,7 +56,8 @@ public class TicketDao {
 
     public void checkForHoldedSeatsNotUsed(){
         for (SeatHold s : holdList){
-            if ((new Date().getTime()-s.getHoldTime().getTime())>60000){ //Not used for at least 60 seconds
+            if (s.isActive() && (new Date().getTime()-s.getHoldTime().getTime())>60000){ //Not used for at least 60 seconds
+                s.setActive(false);  //to ignore future checks
                 for (int e : s.getSeatsHolded()){
                     clearSeatByNumber(e);
                 }
@@ -83,12 +85,17 @@ public class TicketDao {
     }
 
     public String reserveSeats( int seatHoldId,String  customerEmail) {
-        for (Integer s : holdList.get(seatHoldId-1).getSeatsHolded()) {
-            reserveSeatByNumber(s);
+        SeatHold sh = holdList.get(seatHoldId-1);
+        if (sh.isActive()){
+            for (Integer s : sh.getSeatsHolded()) {
+                reserveSeatByNumber(s);
+            }
+            sh.setActive(false);
+            String confirmation = "C"+seatHoldId+customerEmail;
+            confirmationCodeList.add(confirmation);
+            return confirmation;
         }
-        String confirmation = "C"+seatHoldId+customerEmail;
-        confirmationCodeList.add(confirmation);
-        return confirmation;
+        return "Seats not available or already reserved, please try to hold them again";
     }
 
 
