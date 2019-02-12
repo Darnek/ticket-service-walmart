@@ -27,8 +27,8 @@ public class TicketController {
     }
 
     @GetMapping
-    public Collection<Seat> getAllAvailableSeats(){
-        return ticketService.getAllAvailableSeats();
+    public Collection<Seat> getAllSeats(){
+        return ticketService.getAllSeats();
     }
 
     @GetMapping(value = "/number")

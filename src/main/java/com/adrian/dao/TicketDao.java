@@ -55,7 +55,7 @@ public class TicketDao {
 
     public void checkForHoldedSeatsNotUsed(){
         for (SeatHold s : holdList){
-            if ((s.getHoldTime().getTime()-new Date().getTime())<60000){ //Not used for at least 60 seconds
+            if ((new Date().getTime()-s.getHoldTime().getTime())>60000){ //Not used for at least 60 seconds
                 for (int e : s.getSeatsHolded()){
                     clearSeatByNumber(e);
                 }
@@ -86,7 +86,7 @@ public class TicketDao {
         for (Integer s : holdList.get(seatHoldId-1).getSeatsHolded()) {
             reserveSeatByNumber(s);
         }
-        String confirmation = "C"+seatHoldId+"ADRIAN";
+        String confirmation = "C"+seatHoldId+customerEmail;
         confirmationCodeList.add(confirmation);
         return confirmation;
     }
@@ -97,7 +97,9 @@ public class TicketDao {
     }
 
     public void reserveSeatByNumber(int id){
-        this.seats.get(id).reserveSeat();
+        if (this.seats.get(id).getSeatState()==SeatState.HOLD) {
+            this.seats.get(id).reserveSeat();
+        }
     }
 
     public void clearSeatByNumber(int id){

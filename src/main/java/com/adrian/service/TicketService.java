@@ -28,8 +28,8 @@ public class TicketService {
     }
 
 
-    public Collection<Seat> getAllAvailableSeats(){
-        return ticketDao.getAllAvailableSeats();
+    public Collection<Seat> getAllSeats(){
+        return ticketDao.getAllSeats();
     }
 
 
