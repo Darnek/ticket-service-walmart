@@ -34,7 +34,7 @@ public class TicketTest {
 
             int numSeats = ticketDao.numSeatsAvailable();
             seatHold = ticketDao.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            assertEquals(ticketDao.numSeatsAvailable(), numSeats);
+            assertEquals(ticketDao.numSeatsAvailable(), numSeats-seatsToBeHolded);
         }
 
         @Test
