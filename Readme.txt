@@ -84,6 +84,30 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	C1xdarnek@gmail.com
 	
-5.      Swagger added, to see available methods and parameters received.
+5.	In case that you only want to reserve some of the holded seats (using the id from previous response)
+
+	POST - http://localhost:8080/seats/reserveList
+	
+	RequestBody:
+{
+        "seatHoldId": 1,
+	 "seatsList": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+	],
+        "customerEmail": "xdarnek@gmail.com"
+}
+	
+	Response: (Confirmation Code)
+	
+	C1xdarnek@gmail.com
+	
+
+
+6.      Swagger added, to see available methods and parameters received.
 
 	To access go to http://localhost:8080/swagger-ui.html

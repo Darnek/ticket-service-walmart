@@ -22,4 +22,12 @@ public class ReserveRequest {
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
+
+    public List<Integer> getSeatsList() {
+        return seatsList;
+    }
+
+    public void setSeatsList(List<Integer> seatsList) {
+        this.seatsList = seatsList;
+    }
 }

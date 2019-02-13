@@ -108,6 +108,25 @@ public class TicketDao {
         return "Seats not available or already reserved, please try to hold them again";
     }
 
+    public String reserveSeatsByList( int seatHoldId, List<Integer> list, String  customerEmail) {
+        SeatHold sh = holdList.get(seatHoldId-1);
+        if (sh.isActive()){
+            for (Integer s : sh.getSeatsHolded()) {
+                if (this.seats.get(s).getSeatState()==SeatState.HOLD) {
+                    if (list.contains(s)) {
+                        reserveSeatByNumber(s); //Only reserve seats that are in the list
+                    }else{
+                        clearSeatByNumber(s); //c;ear any other seats
+                    }
+                }
+            }
+            sh.setActive(false);
+            String confirmation = "C"+seatHoldId+customerEmail;
+            confirmationCodeList.add(confirmation);
+            return confirmation;
+        }
+        return "Seats not available or already reserved, please try to hold them again";
+    }
 
     public void holdSeatByNumber(int id){
         this.seats.get(id).holdSeat();

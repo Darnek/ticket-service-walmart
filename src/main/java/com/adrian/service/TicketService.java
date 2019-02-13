@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -30,6 +31,9 @@ public class TicketService {
         return getTicketDao().reserveSeats(seatHoldId,customerEmail);
     }
 
+    public synchronized String reserveSeatsByList(int seatHoldId, List<Integer> list, String  customerEmail) {
+        return getTicketDao().reserveSeatsByList(seatHoldId,list,customerEmail);
+    }
 
     public synchronized Collection<Seat> getAllSeats(){
         return getTicketDao().getAllSeats();

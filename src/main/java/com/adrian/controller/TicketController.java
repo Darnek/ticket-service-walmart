@@ -26,6 +26,12 @@ public class TicketController {
         return ticketService.reserveSeats(rr.getSeatHoldId(),rr.getCustomerEmail());
     }
 
+    @PostMapping(value="/reservelist")
+    public String reserveSeatsByList(@RequestBody ReserveRequest rr) {
+        return ticketService.reserveSeatsByList(rr.getSeatHoldId(),rr.getSeatsList(), rr.getCustomerEmail());
+    }
+
+
     @GetMapping
     public Collection<Seat> getAllSeats(){
         return ticketService.getAllSeats();

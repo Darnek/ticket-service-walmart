@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(ConcurrentTestRunner.class)  //To check for thread safe of the methods
@@ -34,14 +36,12 @@ public class TicketTest {
 
         @Test
         public void test2_FindAndHoldSeats() {
-            int numSeats = ticketService.numSeatsAvailable();
             SeatHold seatHold1 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
             assertNotNull(seatHold1);
         }
 
         @Test
         public void test3_ReserveSeats() {
-            int numSeats = ticketService.numSeatsAvailable();
             SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
             String result = ticketService.reserveSeats(seatHold2.getId(), EMAIL);
             assertNotNull(result);
@@ -67,12 +67,24 @@ public class TicketTest {
         }
 
         @Test
-        public void test6_GetAllSeats() {
+        public void test6_ReserveSeatsByList() {
+            SeatHold seatHold = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
+            List<Integer> seatsHolded = seatHold.getSeatsHolded();
+            List<Integer> seatsToBeReserved = seatsHolded.subList(0,seatsHolded.size()/2); //Will be reserving the first half of the holded seats
+            ticketService.reserveSeatsByList(seatHold.getId(), seatsToBeReserved,  EMAIL);
+            for (int s : seatsToBeReserved) {
+                ticketService.getSeatById(s).getSeatState();
+                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.RESERVED);
+            }
+        }
+
+        @Test
+        public void test7_GetAllSeats() {
             assertNotNull(ticketService.getAllSeats());
         }
 
         @Test
-        public void test7_GetSeatById() {
+        public void test8_GetSeatById() {
             for (int i = 0;i<ticketService.getAllSeats().size();i++) {
                 assertNotNull(ticketService.getSeatById(i));
             }
