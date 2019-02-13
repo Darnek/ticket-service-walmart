@@ -11,9 +11,7 @@ import java.util.*;
 public class TicketDao {
 
     private static List<SeatHold> holdList = new ArrayList<>();
-
     private static List<String> confirmationCodeList = new ArrayList<>();
-
     private static List<Seat> seats;
     private static int NUMBER_OF_SEATS = 100;
 
@@ -59,7 +57,9 @@ public class TicketDao {
             if (s.isActive() && (new Date().getTime()-s.getHoldTime().getTime())>60000){ //Not used for at least 60 seconds
                 s.setActive(false);  //to ignore future checks
                 for (int e : s.getSeatsHolded()){
-                    clearSeatByNumber(e);
+                    if (this.seats.get(e).getSeatState()==SeatState.HOLD) {
+                        clearSeatByNumber(e);
+                    }
                 }
             }
         }
@@ -88,7 +88,9 @@ public class TicketDao {
         SeatHold sh = holdList.get(seatHoldId-1);
         if (sh.isActive()){
             for (Integer s : sh.getSeatsHolded()) {
-                reserveSeatByNumber(s);
+                if (this.seats.get(s).getSeatState()==SeatState.HOLD) {
+                    reserveSeatByNumber(s);
+                }
             }
             sh.setActive(false);
             String confirmation = "C"+seatHoldId+customerEmail;
@@ -104,15 +106,11 @@ public class TicketDao {
     }
 
     public void reserveSeatByNumber(int id){
-        if (this.seats.get(id).getSeatState()==SeatState.HOLD) {
             this.seats.get(id).reserveSeat();
-        }
     }
 
     public void clearSeatByNumber(int id){
-        if (this.seats.get(id).getSeatState()==SeatState.HOLD) {
             this.seats.get(id).clearSeat();
-        }
     }
 
 }

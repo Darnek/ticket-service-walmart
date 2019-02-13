@@ -14,21 +14,28 @@ public class TicketService {
     @Autowired
     private TicketDao ticketDao;
 
+    public TicketService(){
+    }
 
-    public int numSeatsAvailable(){
+    public TicketService(TicketDao ticketDao){
+        this.ticketDao=ticketDao;
+    }
+
+
+    public synchronized int numSeatsAvailable(){
         return ticketDao.numSeatsAvailable();
     }
 
-    public SeatHold findAndHoldSeats(int numSeats, String customerEmail){
+    public synchronized SeatHold findAndHoldSeats(int numSeats, String customerEmail){
         return ticketDao.findAndHoldSeats(numSeats, customerEmail);
     }
 
-    public String reserveSeats( int seatHoldId,String  customerEmail) {
+    public synchronized String reserveSeats( int seatHoldId,String  customerEmail) {
         return ticketDao.reserveSeats(seatHoldId,customerEmail);
     }
 
 
-    public Collection<Seat> getAllSeats(){
+    public synchronized Collection<Seat> getAllSeats(){
         return ticketDao.getAllSeats();
     }
 

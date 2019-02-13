@@ -1,8 +1,11 @@
 package com.adrian.entity;
 
+import java.util.List;
+
 public class ReserveRequest {
     private int seatHoldId;
     private String  customerEmail;
+    private List<Integer> seatsList;
 
     public int getSeatHoldId() {
         return seatHoldId;
