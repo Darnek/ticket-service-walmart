@@ -32,7 +32,8 @@ public class TicketServiceTest {
     @Before
     public void init() {
 
-        ticketService = new TicketService(ticketDao);
+        ticketService = new TicketService();
+        ticketService.setTicketDao(ticketDao);
         when(ticketService.numSeatsAvailable()).thenReturn(100);
 
     }

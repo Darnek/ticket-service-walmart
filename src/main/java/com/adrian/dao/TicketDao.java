@@ -3,16 +3,19 @@ package com.adrian.dao;
 import com.adrian.entity.Seat;
 import com.adrian.entity.SeatHold;
 import com.adrian.entity.SeatState;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class TicketDao {
 
     private static List<SeatHold> holdList = new ArrayList<>();
     private static List<String> confirmationCodeList = new ArrayList<>();
-    private static List<Seat> seats;
+    private static volatile List<Seat> seats;
     private static int NUMBER_OF_SEATS = 100;
 
 
@@ -30,7 +33,12 @@ public class TicketDao {
         return this.seats;
     }
 
-    public Collection<Seat> getAllAvailableSeats(){
+    public Seat getSeatById(int id){
+        checkForHoldedSeatsNotUsed();
+        return this.seats.get(id);
+    }
+
+    public synchronized Collection<Seat> getAllAvailableSeats(){
         checkForHoldedSeatsNotUsed();
         List<Seat> availableSeats = new ArrayList<>();
         for (Seat s : seats){

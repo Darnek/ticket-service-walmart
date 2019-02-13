@@ -29,11 +29,15 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 # REST Web Services
 ---
 
-1.	To find the number of seats available use the following in your browser or restclient.
+1.	To find the seats and status use the following in your browser or restclient.
+	
+	GET - http://localhost:8080/seats
+
+2.	To find the number of seats available use the following in your browser or restclient.
 	
 	GET - http://localhost:8080/seats/number
 		```		
-2.	Find and hold the best available seats on behalf of a customer
+3.	Find and hold the best available seats on behalf of a customer
 	
 	POST - http://localhost:8080/seats/hold
 	
@@ -66,7 +70,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	The request will expire after 60 seconds. Before that, the user has to reserve the seats using the web service in the following request.
 	
-3.	Reserve and commit (using the id from previous response)
+4.	Reserve and commit (using the id from previous response)
 
 	POST - http://localhost:8080/seats/reserve
 	
@@ -78,6 +82,8 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	Response: (Confirmation Code)
 	
-	C1ADRIAN
+	C1xdarnek@gmail.com
 	
-	
+5.      Swagger added, to see available methods and parameters received.
+
+	To access go to http://localhost:8080/swagger-ui.html

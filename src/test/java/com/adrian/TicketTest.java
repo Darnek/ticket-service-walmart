@@ -2,12 +2,12 @@ package com.adrian;
 
 import com.adrian.dao.TicketDao;
 import com.adrian.entity.SeatHold;
+import com.adrian.entity.SeatState;
 import com.adrian.service.TicketService;
 import com.anarsoft.vmlens.concurrent.junit.ConcurrentTestRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,8 @@ public class TicketTest {
         @Before
         public void init() {
             ticketDao = new TicketDao();
-            ticketService = new TicketService(ticketDao);
+            ticketService = new TicketService();
+            ticketService.setTicketDao(ticketDao);
         }
 
         @Test
@@ -47,24 +48,33 @@ public class TicketTest {
         }
 
         @Test
-        public synchronized void test4_HoldedSeats() {
-            int numSeats = ticketService.numSeatsAvailable();
-            ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            assertEquals(ticketService.numSeatsAvailable(), numSeats-seatsToBeHolded);
-            //Had to add synchronized because I am checking that the seats are substracted correctly
+        public void test4_HoldedSeats() {
+            SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
+            for (int s : seatHold2.getSeatsHolded()) {
+                ticketService.getSeatById(s).getSeatState();
+                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.HOLD);
+            }
         }
 
         @Test
-        public synchronized void test5_ReservedSeats() {
-            int numSeats = ticketService.numSeatsAvailable();
+        public void test5_ReservedSeats() {
             SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
             ticketService.reserveSeats(seatHold2.getId(), EMAIL);
-            assertEquals(ticketService.numSeatsAvailable(), numSeats-seatsToBeHolded);
-            //Had to add synchronized because I am checking that the seats are substracted correctly
+            for (int s : seatHold2.getSeatsHolded()) {
+                ticketService.getSeatById(s).getSeatState();
+                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.RESERVED);
+            }
         }
 
         @Test
         public void test6_GetAllSeats() {
             assertNotNull(ticketService.getAllSeats());
+        }
+
+        @Test
+        public void test7_GetSeatById() {
+            for (int i = 0;i<ticketService.getAllSeats().size();i++) {
+                assertNotNull(ticketService.getSeatById(i));
+            }
         }
 }
