@@ -15,18 +15,18 @@ public class TicketController {
     public TicketService ticketService;
 
 
-    @PostMapping(value="/hold")
+    @PostMapping(value="/hold") //when holding seats new SeatHols is created, to have information about the seats
     public SeatHold findAndHoldSeats(@RequestBody HoldRequest hr){
         return ticketService.findAndHoldSeats(hr.getNumSeats(), hr.getCustomerEmail());
     }
 
 
-    @PostMapping(value="/reserve")
+    @PutMapping(value="/reserve")
     public String reserveSeats(@RequestBody ReserveRequest rr) {
         return ticketService.reserveSeats(rr.getSeatHoldId(),rr.getCustomerEmail());
     }
 
-    @PostMapping(value="/reservelist")
+    @PutMapping(value="/reservelist") //When reserving no new information is created
     public String reserveSeatsByList(@RequestBody ReserveRequest rr) {
         return ticketService.reserveSeatsByList(rr.getSeatHoldId(),rr.getSeatsList(), rr.getCustomerEmail());
     }

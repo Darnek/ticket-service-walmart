@@ -18,7 +18,6 @@ public class TicketService {
     @Autowired
     private TicketDao ticketDao;
 
-
     public synchronized int numSeatsAvailable(){
         return getTicketDao().numSeatsAvailable();
     }

@@ -72,7 +72,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 4.	Reserve and commit (using the id from previous response)
 
-	POST - http://localhost:8080/seats/reserve
+	PUT - http://localhost:8080/seats/reserve
 	
 	RequestBody:
 {
@@ -86,7 +86,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 5.	In case that you only want to reserve some of the holded seats (using the id from previous response)
 
-	POST - http://localhost:8080/seats/reserveList
+	PUT - http://localhost:8080/seats/reserveList
 	
 	RequestBody:
 {
