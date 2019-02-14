@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eedb0e16-8cf6-4c70-9dfb-6674174248e1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -91,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1207">
-              <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
+            <state relative-caret-position="51">
+              <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1584#1585#0" expanded="true" />
@@ -190,8 +189,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/controller/TicketController.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/adrian/TicketTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/adrian/service/TicketServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/adrian/dao/TicketDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java" />
       </list>
     </option>
   </component>
@@ -277,7 +276,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550159198550" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550159397927" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -749,8 +748,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/adrian/service/TicketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
+        <state relative-caret-position="51">
+          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1584#1585#0" expanded="true" />

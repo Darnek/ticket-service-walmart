@@ -37,7 +37,7 @@ public class TicketService {
     public synchronized Collection<Seat> getAllAvailableSeats(){
         checkForHoldedSeatsNotUsed();
         List<Seat> availableSeats = new ArrayList<>();
-        for (Seat s : ticketDao.getSeats()){
+        for (Seat s : TicketDao.getSeats()){
             if (s.getSeatState()==SeatState.OPEN){
                 availableSeats.add(s);
             }
@@ -46,12 +46,12 @@ public class TicketService {
     }
 
     public synchronized ReserveResponse reserveSeats(int seatHoldId, String  customerEmail) {
-        SeatHold sh = ticketDao.getHoldList().get(seatHoldId-1);
+        SeatHold sh = TicketDao.getHoldList().get(seatHoldId-1);
         ReserveResponse response = new ReserveResponse();
         if (sh.isActive()){
             List<Integer> list = new ArrayList<>();
             for (Integer s : sh.getSeatsHolded()) {
-                if (ticketDao.getSeats().get(s).getSeatState()==SeatState.HOLD) {
+                if (TicketDao.getSeats().get(s).getSeatState()==SeatState.HOLD) {
                     list.add(s);
                     ticketDao.reserveSeatByNumber(s);
                 }
