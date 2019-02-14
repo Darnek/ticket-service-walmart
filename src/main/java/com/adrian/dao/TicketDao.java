@@ -1,5 +1,6 @@
 package com.adrian.dao;
 
+import com.adrian.entity.ReserveResponse;
 import com.adrian.entity.Seat;
 import com.adrian.entity.SeatHold;
 import com.adrian.entity.SeatState;
@@ -75,6 +76,10 @@ public class TicketDao {
 
     public SeatHold findAndHoldSeats(int numSeats, String customerEmail){
 
+        if (numSeats> numSeatsAvailable()){
+            return null;
+        }
+
         List<Integer> seatsAvailable = new ArrayList<>();
         List<Integer> seatsHolded = new ArrayList<>();
 
@@ -92,40 +97,55 @@ public class TicketDao {
 
     }
 
-    public String reserveSeats( int seatHoldId,String  customerEmail) {
+    public List<Integer> getSeatsByHoldId( int seatHoldId) {
         SeatHold sh = holdList.get(seatHoldId-1);
+        return sh.getSeatsHolded();
+    }
+
+    public ReserveResponse reserveSeats(int seatHoldId, String  customerEmail) {
+        SeatHold sh = holdList.get(seatHoldId-1);
+        ReserveResponse response = new ReserveResponse();
         if (sh.isActive()){
+            List<Integer> list = new ArrayList<>();
             for (Integer s : sh.getSeatsHolded()) {
                 if (this.seats.get(s).getSeatState()==SeatState.HOLD) {
+                    list.add(s);
                     reserveSeatByNumber(s);
                 }
             }
             sh.setActive(false);
-            String confirmation = "C"+seatHoldId+customerEmail;
-            confirmationCodeList.add(confirmation);
-            return confirmation;
+            response.setConfirmationCode("C"+seatHoldId+customerEmail);
+            response.setSeatsReserved(list);
+            confirmationCodeList.add(response.getConfirmationCode());
         }
-        return "Seats not available or already reserved, please try to hold them again";
+        else {
+            response.setConfirmationCode("Seats not available or already reserved, please try to hold them again");
+        }
+        return response;
     }
 
-    public String reserveSeatsByList( int seatHoldId, List<Integer> list, String  customerEmail) {
+    public ReserveResponse reserveSeatsByList( int seatHoldId, List<Integer> list, String  customerEmail) {
         SeatHold sh = holdList.get(seatHoldId-1);
-        if (sh.isActive()){
+        ReserveResponse response = new ReserveResponse();
+        if (!sh.isActive()) {
+            response.setConfirmationCode("Seats not available or already reserved, please try to hold them again");
+        }else {
             for (Integer s : sh.getSeatsHolded()) {
-                if (this.seats.get(s).getSeatState()==SeatState.HOLD) {
+                if (this.seats.get(s).getSeatState() == SeatState.HOLD) {
                     if (list.contains(s)) {
                         reserveSeatByNumber(s); //Only reserve seats that are in the list
-                    }else{
+                    } else {
                         clearSeatByNumber(s); //c;ear any other seats
                     }
                 }
             }
             sh.setActive(false);
-            String confirmation = "C"+seatHoldId+customerEmail;
+            String confirmation = "C" + seatHoldId + customerEmail;
             confirmationCodeList.add(confirmation);
-            return confirmation;
+            response.setConfirmationCode(confirmation);
+            response.setSeatsReserved(list);
         }
-        return "Seats not available or already reserved, please try to hold them again";
+            return response;
     }
 
     public void holdSeatByNumber(int id){

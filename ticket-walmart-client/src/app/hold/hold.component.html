@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------
+Hold Seats
+<br>
+How many seats do you want? <input #reqSeatNumber />
+Enter your email <input #reqEmail/>
+
+
+<button (click)="holdSeats({numSeats: reqSeatNumber.value, customerEmail: reqEmail.value})">Go</button>
+
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+        Your id is {{seats.id}}
+        <br/>
+        Your seats are: 
+      <mat-list-item *ngFor="let number of seats.seatsHolded">
+        <h3 mat-line>{{number}}</h3>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

@@ -50,13 +50,7 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void test3_ReserveSeats() {
-        when(ticketService.reserveSeats(Mockito.anyInt(),Mockito.anyString())).thenReturn("String");
-        assertNotNull(ticketService.reserveSeats(seatsToBeHolded, EMAIL));
-    }
-
-    @Test
-    public void test4_GetAllSeats() {
+    public void test3_GetAllSeats() {
         when(ticketService.getAllSeats()).thenReturn( Arrays.asList(new Seat(1)));
         assertNotNull(ticketService.getAllSeats());
     }

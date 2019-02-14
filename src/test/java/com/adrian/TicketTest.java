@@ -43,7 +43,7 @@ public class TicketTest {
         @Test
         public void test3_ReserveSeats() {
             SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            String result = ticketService.reserveSeats(seatHold2.getId(), EMAIL);
+            String result = ticketService.reserveSeats(seatHold2.getId(), EMAIL).getConfirmationCode();
             assertNotNull(result);
         }
 
@@ -69,7 +69,7 @@ public class TicketTest {
         @Test
         public void test6_ReserveSeatsByList() {
             SeatHold seatHold = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            List<Integer> seatsHolded = seatHold.getSeatsHolded();
+            List<Integer> seatsHolded = ticketService.getSeatsByHoldId(seatHold.getId());
             List<Integer> seatsToBeReserved = seatsHolded.subList(0,seatsHolded.size()/2); //Will be reserving the first half of the holded seats
             ticketService.reserveSeatsByList(seatHold.getId(), seatsToBeReserved,  EMAIL);
             for (int s : seatsToBeReserved) {

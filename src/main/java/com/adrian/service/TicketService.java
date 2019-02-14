@@ -1,6 +1,7 @@
 package com.adrian.service;
 
 import com.adrian.dao.TicketDao;
+import com.adrian.entity.ReserveResponse;
 import com.adrian.entity.Seat;
 import com.adrian.entity.SeatHold;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,16 @@ public class TicketService {
         return getTicketDao().findAndHoldSeats(numSeats, customerEmail);
     }
 
-    public synchronized String reserveSeats( int seatHoldId,String  customerEmail) {
+    public synchronized ReserveResponse reserveSeats(int seatHoldId, String  customerEmail) {
         return getTicketDao().reserveSeats(seatHoldId,customerEmail);
     }
 
-    public synchronized String reserveSeatsByList(int seatHoldId, List<Integer> list, String  customerEmail) {
+    public synchronized ReserveResponse reserveSeatsByList(int seatHoldId, List<Integer> list, String  customerEmail) {
         return getTicketDao().reserveSeatsByList(seatHoldId,list,customerEmail);
+    }
+
+    public synchronized List<Integer> getSeatsByHoldId(int seatHoldId){
+        return getTicketDao().getSeatsByHoldId(seatHoldId);
     }
 
     public synchronized Collection<Seat> getAllSeats(){

@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------
+Search for holded seats
+<br>
+
+Enter your Hold Id
+<input #holdSeat/>
+<button (click)="getSeats(holdSeat.value)">Search</button>
+
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+        Seats: 
+      <mat-list-item *ngFor="let number of seats">
+        <h3 mat-line>{{number}}</h3>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

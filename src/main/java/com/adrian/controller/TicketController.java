@@ -21,14 +21,20 @@ public class TicketController {
     }
 
 
-    @PutMapping(value="/reserve")
-    public String reserveSeats(@RequestBody ReserveRequest rr) {
+    @PostMapping(value="/reserve")
+    public ReserveResponse reserveSeats(@RequestBody ReserveRequest rr) {
         return ticketService.reserveSeats(rr.getSeatHoldId(),rr.getCustomerEmail());
     }
 
-    @PutMapping(value="/reservelist") //When reserving no new information is created
-    public String reserveSeatsByList(@RequestBody ReserveRequest rr) {
+    @PostMapping(value="/reservelist") //When reserving no new information is created
+    public ReserveResponse reserveSeatsByList(@RequestBody ReserveRequest rr) {
         return ticketService.reserveSeatsByList(rr.getSeatHoldId(),rr.getSeatsList(), rr.getCustomerEmail());
+    }
+
+
+    @GetMapping(value="/seatsholded/{id}")
+    public Collection<Integer> getSeatsByHoldId(@PathVariable("id") int seatsHoldId){
+        return ticketService.getSeatsByHoldId(seatsHoldId);
     }
 
 

@@ -1,0 +1,17 @@
+--------------------------------------------------------------------------------
+Reserve Seats
+<br>
+
+Enter your hold Id <input #holdId/>
+Enter your email Id <input #emailId/>
+Select your seats separated by comma <input #seatsList/>
+
+<button (click)="reserveSeatsList({seatHoldId: holdId.value, seatsList: seatsList.value.split(','), customerEmail: emailId.value})">Reserve seats</button>
+<button (click)="reserveSeats({seatHoldId: holdId.value, customerEmail: emailId.value})">Reserve all</button>
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+        Your confirmation code is {{seats}}
+    </mat-list>
+  </mat-card-content>
+</mat-card>

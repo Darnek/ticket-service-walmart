@@ -1,0 +1,10 @@
+<mat-card>
+    <mat-card-title>Seat List</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let seat of seats">
+          <h3 mat-line>Id: {{seat.id}}, state: {{seat.seatState}}</h3>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>

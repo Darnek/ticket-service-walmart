@@ -25,6 +25,15 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 4.   To test you should run the command "mvn test" or click run on the TicketTest.java
 
+5.   To test the services using angular you need to have installed node.js, angular7 and enter the folder 'ticket-walmart-client' and run 'ng s',
+	this will start the server on the port 4200
+
+	http://localhost:4200
+
+     The app is very basic but allows you to hold and register seats, notes for use are on the webpage, validations and improvements to UI will come in near future.
+
+6. You can also check the status of the services using swagger on the following url http://localhost:8080/swagger-ui.html
+
 
 # REST Web Services
 ---
@@ -72,7 +81,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 4.	Reserve and commit (using the id from previous response)
 
-	PUT - http://localhost:8080/seats/reserve
+	POST - http://localhost:8080/seats/reserve
 	
 	RequestBody:
 {
@@ -84,9 +93,31 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	C1xdarnek@gmail.com
 	
+5.      If you want to see the numbers holded by your id
+
+	GET - http://localhost:8080/seats/seatsholded/{id}
+
+	where id is your id, example: http://localhost:8080/seats/seatsholded/1
+
+	response
+	
+[
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+]
+
+
 5.	In case that you only want to reserve some of the holded seats (using the id from previous response)
 
-	PUT - http://localhost:8080/seats/reserveList
+	POST - http://localhost:8080/seats/reserveList
 	
 	RequestBody:
 {
@@ -103,6 +134,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 }
 	
 	Response: (Confirmation Code)
+	
 	
 	C1xdarnek@gmail.com
 	
