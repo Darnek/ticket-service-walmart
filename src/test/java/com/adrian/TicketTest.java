@@ -50,9 +50,10 @@ public class TicketTest {
         @Test
         public void test4_HoldedSeats() {
             SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            for (int s : seatHold2.getSeatsHolded()) {
-                ticketService.getSeatById(s).getSeatState();
-                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.HOLD);
+            for (String s : seatHold2.getSeatsHolded()) {
+                int id = TicketService.getIdFromSeatId(s);
+                ticketService.getSeatById(id).getSeatState();
+                assertEquals(ticketService.getSeatById(id).getSeatState(), SeatState.HOLD);
             }
         }
 
@@ -60,21 +61,23 @@ public class TicketTest {
         public void test5_ReservedSeats() {
             SeatHold seatHold2 = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
             ticketService.reserveSeats(seatHold2.getId(), EMAIL);
-            for (int s : seatHold2.getSeatsHolded()) {
-                ticketService.getSeatById(s).getSeatState();
-                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.RESERVED);
+            for (String s : seatHold2.getSeatsHolded()) {
+                int id = TicketService.getIdFromSeatId(s);
+                ticketService.getSeatById(id).getSeatState();
+                assertEquals(ticketService.getSeatById(id).getSeatState(), SeatState.RESERVED);
             }
         }
 
         @Test
         public void test6_ReserveSeatsByList() {
             SeatHold seatHold = ticketService.findAndHoldSeats(seatsToBeHolded,EMAIL);
-            List<Integer> seatsHolded = ticketService.getSeatsByHoldId(seatHold.getId());
-            List<Integer> seatsToBeReserved = seatsHolded.subList(0,seatsHolded.size()/2); //Will be reserving the first half of the holded seats
+            List<String> seatsHolded = ticketService.getSeatsByHoldId(seatHold.getId());
+            List<String> seatsToBeReserved = seatsHolded.subList(0,seatsHolded.size()/2); //Will be reserving the first half of the holded seats
             ticketService.reserveSeatsByList(seatHold.getId(), seatsToBeReserved,  EMAIL);
-            for (int s : seatsToBeReserved) {
-                ticketService.getSeatById(s).getSeatState();
-                assertEquals(ticketService.getSeatById(s).getSeatState(), SeatState.RESERVED);
+            for (String s : seatsToBeReserved) {
+                int id = TicketService.getIdFromSeatId(s);
+                ticketService.getSeatById(id).getSeatState();
+                assertEquals(ticketService.getSeatById(id).getSeatState(), SeatState.RESERVED);
             }
         }
 

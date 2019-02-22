@@ -10,6 +10,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -23,62 +25,62 @@ public class TicketService {
     @Autowired
     private TicketDao ticketDao;
 
-    public int numSeatsAvailable(){
+    public int numSeatsAvailable() {
         checkForHoldedSeatsNotUsed();
-        int numSeats=0;
-        for (Seat s : ticketDao.getSeats()){
-            if (s.getSeatState()== SeatState.OPEN){
+        int numSeats = 0;
+        for (Seat s : ticketDao.getSeats()) {
+            if (s.getSeatState() == SeatState.OPEN) {
                 numSeats++;
             }
         }
         return numSeats;
     }
 
-    public synchronized Collection<Seat> getAllAvailableSeats(){
+    public synchronized Collection<Seat> getAllAvailableSeats() {
         checkForHoldedSeatsNotUsed();
         List<Seat> availableSeats = new ArrayList<>();
-        for (Seat s : TicketDao.getSeats()){
-            if (s.getSeatState()==SeatState.OPEN){
+        for (Seat s : TicketDao.getSeats()) {
+            if (s.getSeatState() == SeatState.OPEN) {
                 availableSeats.add(s);
             }
         }
         return availableSeats;
     }
 
-    public synchronized ReserveResponse reserveSeats(int seatHoldId, String  customerEmail) {
-        SeatHold sh = TicketDao.getHoldList().get(seatHoldId-1);
+    public synchronized ReserveResponse reserveSeats(int seatHoldId, String customerEmail) {
+        SeatHold sh = TicketDao.getHoldList().get(seatHoldId - 1);
         ReserveResponse response = new ReserveResponse();
-        if (sh.isActive()){
-            List<Integer> list = new ArrayList<>();
-            for (Integer s : sh.getSeatsHolded()) {
-                if (TicketDao.getSeats().get(s).getSeatState()==SeatState.HOLD) {
+        if (sh.isActive()) {
+            List<String> list = new ArrayList<>();
+            for (String s : sh.getSeatsHolded()) {
+                int id = getIdFromSeatId(s);
+                if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
                     list.add(s);
-                    ticketDao.reserveSeatByNumber(s);
+                    ticketDao.reserveSeatByNumber(id);
                 }
             }
             sh.setActive(false);
-            response.setConfirmationCode("C"+seatHoldId+customerEmail);
+            response.setConfirmationCode(createFolio(seatHoldId + customerEmail));
             response.setSeatsReserved(list);
             TicketDao.getConfirmationCodeList().add(response.getConfirmationCode());
-        }
-        else {
+        } else {
             response.setConfirmationCode("Seats not available or already reserved, please try to hold them again");
         }
         return response;
     }
 
 
-    public synchronized List<Integer> getSeatsByHoldId(int seatHoldId){
-        SeatHold sh = TicketDao.getHoldList().get(seatHoldId-1);
+    public synchronized List<String> getSeatsByHoldId(int seatHoldId) {
+        SeatHold sh = TicketDao.getHoldList().get(seatHoldId - 1);
         return getTicketDao().getSeatsByHoldId(sh);
     }
 
-    public synchronized Collection<Seat> getAllSeats(){
+    public synchronized Collection<Seat> getAllSeats() {
         checkForHoldedSeatsNotUsed();
         return getTicketDao().getAllSeats();
     }
 
-    public synchronized Seat getSeatById(int id){
+    public synchronized Seat getSeatById(int id) {
         checkForHoldedSeatsNotUsed();
         return getTicketDao().getSeatById(id);
     }
@@ -91,36 +93,40 @@ public class TicketService {
         this.ticketDao = ticketDao;
     }
 
-    public void checkForHoldedSeatsNotUsed(){
-        for (SeatHold s : TicketDao.getHoldList()){
-            if (s.isActive() && (new Date().getTime()-s.getHoldTime().getTime())>60000){ //Not used for at least 60 seconds
+    public void checkForHoldedSeatsNotUsed() {
+        long currentTime = new Date().getTime();
+        for (SeatHold s : TicketDao.getHoldList()) {
+            if (s.isActive() && (currentTime - s.getHoldTime().getTime()) > 60000) { //Not used for at least 60 seconds
                 s.setActive(false);  //to ignore future checks
-                for (int e : s.getSeatsHolded()){
-                    if (TicketDao.getSeats().get(e).getSeatState()== SeatState.HOLD) {
-                        ticketDao.clearSeatByNumber(e);
+                for (String e : s.getSeatsHolded()) {
+                    int id = getIdFromSeatId(e);
+                    if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
+                        ticketDao.clearSeatByNumber(id);
                     }
                 }
             }
         }
     }
 
-    public synchronized ReserveResponse reserveSeatsByList( int seatHoldId, List<Integer> list, String  customerEmail) {
-        SeatHold sh = ticketDao.getHoldList().get(seatHoldId-1);
+    public synchronized ReserveResponse reserveSeatsByList(int seatHoldId, List<String> list, String customerEmail) {
+        SeatHold sh = TicketDao.getHoldList().get(seatHoldId - 1);
         ReserveResponse response = new ReserveResponse();
         if (!sh.isActive()) {
             response.setConfirmationCode("Seats not available or already reserved, please try to hold them again");
-        }else {
-            for (Integer s : sh.getSeatsHolded()) {
-                if (TicketDao.getSeats().get(s).getSeatState() == SeatState.HOLD) {
+        } else {
+            list.replaceAll(String::trim); //to remove all spaces entered by the user
+            for (String s : sh.getSeatsHolded()) {
+                int id = getIdFromSeatId(s);
+                if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
                     if (list.contains(s)) {
-                        ticketDao.reserveSeatByNumber(s); //Only reserve seats that are in the list
+                        ticketDao.reserveSeatByNumber(id); //Only reserve seats that are in the list
                     } else {
-                        ticketDao.clearSeatByNumber(s); //clear any other seats
+                        ticketDao.clearSeatByNumber(id); //clear any other seats
                     }
                 }
             }
             sh.setActive(false);
-            String confirmation = "C" + seatHoldId + customerEmail;
+            String confirmation = createFolio(seatHoldId + customerEmail);
             TicketDao.getConfirmationCodeList().add(confirmation);
             response.setConfirmationCode(confirmation);
             response.setSeatsReserved(list);
@@ -128,29 +134,49 @@ public class TicketService {
         return response;
     }
 
-    public synchronized SeatHold findAndHoldSeats(int numSeats, String customerEmail){
+    public synchronized SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
 
-        if (numSeats> numSeatsAvailable()){
+        if (numSeats > numSeatsAvailable()) {
             return null;
         }
 
         List<Integer> seatsAvailable = new ArrayList<>();
-        List<Integer> seatsHolded = new ArrayList<>();
+        List<String> seatsHolded = new ArrayList<>();
 
-        for (Seat s : getAllAvailableSeats()){
+        for (Seat s : getAllAvailableSeats()) {
             seatsAvailable.add(s.getId());
         }
-        for (int i =0; i<numSeats; i++){
+        for (int i = 0; i < numSeats; i++) {
 
             ticketDao.holdSeatByNumber(seatsAvailable.get(i));
-            seatsHolded.add(seatsAvailable.get(i));
+            seatsHolded.add(getSeatIdFromId(seatsAvailable.get(i)));
         }
-        SeatHold sh = new SeatHold(TicketDao.getHoldList().size()+1, customerEmail, seatsHolded);
+        SeatHold sh = new SeatHold(TicketDao.getHoldList().size() + 1, customerEmail, seatsHolded);
         TicketDao.getHoldList().add(sh);
         return sh;
 
     }
 
+    public static String getSeatIdFromId(int id) {
+        return TicketDao.getSeatIdFromId(id);
+    }
 
+    public static int getIdFromSeatId(String seatId) {
+        return TicketDao.getIdFromSeatId(seatId);
+    }
+
+    public static String createFolio(String orig){
+
+        MessageDigest digest = null;
+        byte[] encodedhash = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            encodedhash = digest.digest(orig.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "C"+encodedhash.toString().toUpperCase().substring(3,10);
+    }
 
 }

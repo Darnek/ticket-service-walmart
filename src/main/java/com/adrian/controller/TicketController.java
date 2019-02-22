@@ -33,7 +33,7 @@ public class TicketController {
 
 
     @GetMapping(value="/seatsholded/{id}")
-    public Collection<Integer> getSeatsByHoldId(@PathVariable("id") int seatsHoldId){
+    public Collection<String> getSeatsByHoldId(@PathVariable("id") int seatsHoldId){
         return ticketService.getSeatsByHoldId(seatsHoldId);
     }
 

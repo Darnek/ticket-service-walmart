@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ReserveResponse {
     private String confirmationCode;
-    private List<Integer> seatsReserved;
+    private List<String> seatsReserved;
 
     public String getConfirmationCode() {
         return confirmationCode;
@@ -14,11 +14,11 @@ public class ReserveResponse {
         this.confirmationCode = confirmationCode;
     }
 
-    public List<Integer> getSeatsReserved() {
+    public List<String> getSeatsReserved() {
         return seatsReserved;
     }
 
-    public void setSeatsReserved(List<Integer> seatsReserved) {
+    public void setSeatsReserved(List<String> seatsReserved) {
         this.seatsReserved = seatsReserved;
     }
 }

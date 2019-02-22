@@ -5,7 +5,7 @@ import java.util.List;
 public class ReserveRequest {
     private int seatHoldId;
     private String  customerEmail;
-    private List<Integer> seatsList;
+    private List<String> seatsList;
 
     public int getSeatHoldId() {
         return seatHoldId;
@@ -23,11 +23,11 @@ public class ReserveRequest {
         this.customerEmail = customerEmail;
     }
 
-    public List<Integer> getSeatsList() {
+    public List<String> getSeatsList() {
         return seatsList;
     }
 
-    public void setSeatsList(List<Integer> seatsList) {
+    public void setSeatsList(List<String> seatsList) {
         this.seatsList = seatsList;
     }
 }

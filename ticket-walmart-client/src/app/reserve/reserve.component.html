@@ -4,9 +4,9 @@ Reserve Seats
 
 Enter your hold Id <input #holdId/>
 Enter your email Id <input #emailId/>
-Select your seats separated by comma <input #seatsList/>
+Select your seats separated by comma e.g. A1,A2,A3 <input #seatsList/>
 
-<button (click)="reserveSeatsList({seatHoldId: holdId.value, seatsList: seatsList.value.split(','), customerEmail: emailId.value})">Reserve seats</button>
+<button (click)="reserveSeatsList({seatHoldId: holdId.value, seatsList: seatsList.value.toUpperCase().split(','), customerEmail: emailId.value})">Reserve seats</button>
 <button (click)="reserveSeats({seatHoldId: holdId.value, customerEmail: emailId.value})">Reserve all</button>
 <mat-card>
   <mat-card-content>

@@ -1,9 +1,7 @@
 package com.adrian.dao;
 
-import com.adrian.entity.ReserveResponse;
 import com.adrian.entity.Seat;
 import com.adrian.entity.SeatHold;
-import com.adrian.entity.SeatState;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -18,14 +16,22 @@ public class TicketDao {
     private static List<String> confirmationCodeList = new ArrayList<>();
     private static volatile List<Seat> seats;
     private static int NUMBER_OF_SEATS = 100;
+    private static int NUMBER_OF_COLUMNS = 10;
 
 
     static{
          setSeats(new ArrayList<>());
          for (int i=0; i<NUMBER_OF_SEATS; i++) { //to generate 100 seats with status open(defined in the constructor)
-             getSeats().add(new Seat(i));
+             getSeats().add(new Seat(i, getSeatIdFromId(i)));
          }
+    }
 
+    public static String getSeatIdFromId(int id){
+        return (char)(65+id/NUMBER_OF_COLUMNS) +""+ (id%NUMBER_OF_COLUMNS +1);
+    }
+
+    public static int getIdFromSeatId(String seatId){
+        return (seatId.charAt(0)-65)*NUMBER_OF_COLUMNS + Integer.parseInt(seatId.substring(1))-1;
     }
 
     public static List<SeatHold> getHoldList() {
@@ -60,7 +66,7 @@ public class TicketDao {
         return this.getSeats().get(id);
     }
 
-    public List<Integer> getSeatsByHoldId( SeatHold seatHold) {
+    public List<String> getSeatsByHoldId( SeatHold seatHold) {
         return seatHold.getSeatsHolded();
     }
 

@@ -9,7 +9,7 @@ public class SeatHold {
     private int customerId;
     private Date holdTime;
     private String customerEmail;
-    private List<Integer> seatsHolded;
+    private List<String> seatsHolded;
     private boolean active = true;
 
     public boolean isActive() {
@@ -23,7 +23,7 @@ public class SeatHold {
 
     public SeatHold(){}
 
-    public SeatHold(int id, String email, List<Integer> seatsHolded){
+    public SeatHold(int id, String email, List<String> seatsHolded){
         this.id=id;
         this.customerEmail = email;
         this.seatsHolded = seatsHolded;
@@ -31,12 +31,8 @@ public class SeatHold {
     }
 
 
-    public List<Integer> getSeatsHolded() {
+    public List<String> getSeatsHolded() {
         return seatsHolded;
-    }
-
-    public void setSeatsHolded(List<Integer> seatsHolded) {
-        this.seatsHolded = seatsHolded;
     }
 
 
