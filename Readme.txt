@@ -52,7 +52,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	RequestBody:
 	{
-        "numSeats": 10,
+        "numSeats": 3,
         "customerEmail": "xdarnek@gmail.com"
 	}
 	
@@ -64,17 +64,10 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
     "holdTime": "2019-02-08T12:27:58.734+0000",
     "customerEmail": "xdarnek@gmail.com",
     "seatsHolded": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-    	]
+        A1,
+        A2,
+        A3,
+        ]
 	}
 	
 	The request will expire after 60 seconds. Before that, the user has to reserve the seats using the web service in the following request.
@@ -91,7 +84,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	
 	Response: (Confirmation Code)
 	
-	C1xdarnek@gmail.com
+	C[randomhash] e.g. C1254879464
 	
 5.      If you want to see the numbers holded by your id
 
@@ -102,16 +95,16 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	response
 	
 [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
+    A1,
+    A2,
+    A3,
+    A4,
+    A5,
+    A6,
+    A7,
+    A8,
+    A9,
+    A10
 ]
 
 
@@ -123,12 +116,9 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 {
         "seatHoldId": 1,
 	 "seatsList": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
+        A1,
+        A2,
+        A3
 	],
         "customerEmail": "xdarnek@gmail.com"
 }
@@ -136,7 +126,7 @@ In case of compile error please try using jdk 11.0.2 or later and apache maven 3
 	Response: (Confirmation Code)
 	
 	
-	C1xdarnek@gmail.com
+	C[randomhash] e.g. C1254879464
 	
 
 
