@@ -14,15 +14,14 @@ public class TicketDao {
 
     private static List<SeatHold> holdList = new ArrayList<>();
     private static List<String> confirmationCodeList = new ArrayList<>();
-    private static volatile List<Seat> seats;
     private static int NUMBER_OF_SEATS = 100;
     private static int NUMBER_OF_COLUMNS = 10;
+    private static volatile Seat[] seats = new Seat[NUMBER_OF_SEATS];
 
 
     static{
-         setSeats(new ArrayList<>());
          for (int i=0; i<NUMBER_OF_SEATS; i++) { //to generate 100 seats with status open(defined in the constructor)
-             getSeats().add(new Seat(i, getSeatIdFromId(i)));
+             seats[i] = new Seat(i, getSeatIdFromId(i));
          }
     }
 
@@ -50,20 +49,20 @@ public class TicketDao {
         TicketDao.confirmationCodeList = confirmationCodeList;
     }
 
-    public static List<Seat> getSeats() {
+    public static Seat[] getSeats() {
         return seats;
     }
 
-    public static void setSeats(List<Seat> seats) {
+    public static void setSeats(Seat[] seats) {
         TicketDao.seats = seats;
     }
 
-    public Collection<Seat> getAllSeats(){
+    public Seat[] getAllSeats(){
         return this.getSeats();
     }
 
     public Seat getSeatById(int id){
-        return this.getSeats().get(id);
+        return seats[id];
     }
 
     public List<String> getSeatsByHoldId( SeatHold seatHold) {
@@ -71,15 +70,15 @@ public class TicketDao {
     }
 
     public void holdSeatByNumber(int id){
-        this.getSeats().get(id).holdSeat();
+        seats[id].holdSeat();
     }
 
     public void reserveSeatByNumber(int id){
-            this.getSeats().get(id).reserveSeat();
+        seats[id].reserveSeat();
     }
 
     public void clearSeatByNumber(int id){
-            this.getSeats().get(id).clearSeat();
+        seats[id].clearSeat();
     }
 
 }

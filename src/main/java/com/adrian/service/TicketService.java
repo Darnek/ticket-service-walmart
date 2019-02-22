@@ -54,7 +54,7 @@ public class TicketService {
             List<String> list = new ArrayList<>();
             for (String s : sh.getSeatsHolded()) {
                 int id = getIdFromSeatId(s);
-                if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
+                if (ticketDao.getSeatById(id).getSeatState() == SeatState.HOLD) {
                     list.add(s);
                     ticketDao.reserveSeatByNumber(id);
                 }
@@ -75,7 +75,7 @@ public class TicketService {
         return getTicketDao().getSeatsByHoldId(sh);
     }
 
-    public synchronized Collection<Seat> getAllSeats() {
+    public synchronized Seat[] getAllSeats() {
         checkForHoldedSeatsNotUsed();
         return getTicketDao().getAllSeats();
     }
@@ -100,7 +100,7 @@ public class TicketService {
                 s.setActive(false);  //to ignore future checks
                 for (String e : s.getSeatsHolded()) {
                     int id = getIdFromSeatId(e);
-                    if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
+                    if (ticketDao.getSeatById(id).getSeatState() == SeatState.HOLD) {
                         ticketDao.clearSeatByNumber(id);
                     }
                 }
@@ -117,7 +117,7 @@ public class TicketService {
             list.replaceAll(String::trim); //to remove all spaces entered by the user
             for (String s : sh.getSeatsHolded()) {
                 int id = getIdFromSeatId(s);
-                if (TicketDao.getSeats().get(id).getSeatState() == SeatState.HOLD) {
+                if (ticketDao.getSeatById(id).getSeatState() == SeatState.HOLD) {
                     if (list.contains(s)) {
                         ticketDao.reserveSeatByNumber(id); //Only reserve seats that are in the list
                     } else {

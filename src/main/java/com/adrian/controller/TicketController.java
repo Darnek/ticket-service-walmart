@@ -39,7 +39,7 @@ public class TicketController {
 
 
     @GetMapping
-    public Collection<Seat> getAllSeats(){
+    public Seat[] getAllSeats(){
         return ticketService.getAllSeats();
     }
 

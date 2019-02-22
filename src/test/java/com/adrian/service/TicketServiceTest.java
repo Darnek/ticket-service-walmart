@@ -51,7 +51,7 @@ public class TicketServiceTest {
 
     @Test
     public void test3_GetAllSeats() {
-        when(ticketService.getAllSeats()).thenReturn( Arrays.asList(new Seat(1)));
+        when(ticketService.getAllSeats()).thenReturn( new Seat[1]);
         assertNotNull(ticketService.getAllSeats());
     }
 

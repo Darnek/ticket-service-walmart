@@ -88,7 +88,7 @@ public class TicketTest {
 
         @Test
         public void test8_GetSeatById() {
-            for (int i = 0;i<ticketService.getAllSeats().size();i++) {
+            for (int i = 0;i<ticketService.getAllSeats().length;i++) {
                 assertNotNull(ticketService.getSeatById(i));
             }
         }
